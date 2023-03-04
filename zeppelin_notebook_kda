@@ -1,0 +1,32 @@
+# first paragraph in Zeppelin --create incoming table
+%flink.ssql
+CREATE TABLE `power_data_5` (
+`read_date` VARCHAR(16),
+`read_time` VARCHAR(8),
+active_power DECIMAL,
+reactive_power DECIMAL,
+voltage DECIMAL,
+intensity DECIMAL,
+submeter1_kitchen DECIMAL,
+submeter2_laundry DECIMAL,
+submeter3_heatcool DECIMAL,
+input_time as PROCTIME()
+)
+WITH (
+'connector' = 'kinesis',
+'stream' = 'dataset_trial',
+'aws.region' = 'eu-central-1',
+'scan.stream.initpos' = 'LATEST',
+'format' = 'csv',
+'csv.field-delimiter' = ';',
+'csv.ignore-parse-errors' = 'true'
+)
+
+# second paragraph in Zeppelin --create destination table
+%flink.pyflink
+input_table = st_env.from_path("power_data_5")
+new_table = input_table.window(Slide.over("10.second").every("5.second").on("input_time").alias("ten_sec_window")).group_by("ten_sec_window, read_date").select("read_date, avg(submeter3_heatcool) as heat_cool")
+
+# third paragraph in Zeppelin --show data (tables and charts possible)
+%flink.pyflink
+z.show(new_table, stream_type="update")
