@@ -1,5 +1,5 @@
 # aws_kinesis codes and photos
-[Power dataset](https://archive.ics.uci.edu/ml/datasets/individual+household+electric+power+consumption)
+[Power dataset](https://archive.ics.uci.edu/ml/datasets/individual+household+electric+power+consumption) \n
 Contains:
 * code to put records in Kinesis Data Stream (Python boto3)
 * code for streaming SQL application (legacy) of Kinesis Analytics
