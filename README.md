@@ -5,6 +5,6 @@ Contains:
 * code for streaming SQL application (legacy) of Kinesis Analytics
 * code for streaming in Zeppelin (notebook-type) using Studio notebooks of Kinesis Analytics
 * **Note**: for Zeppelin, additional permission to access Kinesis must be configured manually
-* Sample photos of Zeppelin 
+* Sample photos of output in Zeppelin 
 ![Streaming table](images/zeppelin_table_output.png)
 ![Streaming chart](images/zeppelin_chart_output.png)
